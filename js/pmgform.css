@@ -1,0 +1,48 @@
+#JQTreeview
+{
+  border: 1px solid #11B700;
+  padding: 5px;
+}
+
+.expandNode
+{
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  float: left;
+  margin-right: 8px;
+}
+
+.expand
+{
+  background: url(http://www.switchonthecode.com/sites/default/files/707/images/expandIcon.png) no-repeat;
+}
+
+.collapse
+{
+  background: url(http://www.switchonthecode.com/sites/default/files/707/images/collapseIcon.png) no-repeat;
+}
+
+.NodeContents
+{
+  border-left: 6px solid #D2FFCC;
+  margin-left: 4px;
+  display: none;
+  padding-left: 5px;
+}
+
+span.ItemTitle
+{
+  font-size: 10px;
+  width: 100px;
+  text-decoration: underline;
+}
+
+div.NodeItem div.ItemTxt
+{
+  font-size: 14px;
+  padding: 2px 5px;
+  margin-bottom: 2px;
+  text-decoration: none;
+}
