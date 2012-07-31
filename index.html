@@ -106,6 +106,26 @@
                 id:'myModal',
                 title: 'Primer Formulario',
                 closable:true,
+                buttons   : [
+//                               {
+//                                title:'update',
+//                                type :'default'
+//                               },
+                                 {
+                                  title:'save',
+                                  type :'primary',
+                                  click : function( elem ){
+                                      console.log(elem)
+                                      alert('clicked');
+                                      //console.log(elem);   
+                                  }
+                                 },
+                                 {
+                                  title:'cancel',
+                                  type :'cancel'
+                                 }
+                                 
+                                ],
                 items: {
                          id        : 'formid',
                          name      : 'formulario',
@@ -142,8 +162,11 @@
                                             label     : 'checkbox label',
                                             inline    : false,
                                             //requiered    : true,
-                                            items     :[[1,'item1'],[2,'item2']] 
-                                           // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                                            items     :[[1,'check1'],[2,'check2']],
+                                            // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                                            listener  : function(){
+                                                alert('here the listener');
+                                            }
                                         },
                                         {
                                             type      : 'combobox',
@@ -152,7 +175,7 @@
                                             label     : 'combobox',
                                             multiple  : false,
                                             fields: ['id', 'items'],
-                                            items: [[1, 'item1'], [2, 'item2']]
+                                            items: [[1, 'cmb1'], [2, 'cmb2']]
                                         },
                                         {
                                             type      : 'inputfile',
@@ -165,7 +188,8 @@
                                             id        : 'textarea',
                                             name      : 'textarea',
                                             label     : 'Text Area',
-                                            rows      : 3
+                                            rows      : 3,
+                                            requiered :true
                                         },
                                         {
                                             type       :'radiobutton',
@@ -174,7 +198,7 @@
                                             label     : 'Radio Button',
                                             //optionLabel      : 'Option one is this and that—be sure to include why it\'s great',
                                             inline    : false,
-                                            items     :[[1,'item1'],[2,'item2']]
+                                            items     :[[1,'radio1'],[2,'radio2']]
                                         }
                                         
                                         

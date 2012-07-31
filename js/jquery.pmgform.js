@@ -37,9 +37,12 @@
                                   title:'save',
                                   type :'primary',
                                   click : function( elem ){
-                                      alert('form submited');                                      
-                                      //var frm_element = document.getElementById (elem);
-                                      //console.log(frm_element);
+                                      alert('hola');
+                                      var $form = $('form');
+                                      var formElems = $('#'+elem).find( $form );
+                                      console.log(formElems);
+                                      //
+                                      //console.log(frm_element);   
                                   }
                                  },
                                  {
@@ -123,9 +126,44 @@
                         var button = $('<a>').addClass('btn btn-primary').text(elem.title);
                         
                         $(button).click(function(){
-                           //alert(setting.id);
-                           elem.click(setting.id);
+                           var $form = $('form');
+                           var formA = $('#'+setting.id).find( $form );
+                           var postData  = new Object();
+                           var checkData=[];
+                           var k=0;
+                           formA.find(':input').each(function()
+                           {
+                                //alert($(this).attr('name')+' -> '+$(this).val());
+                                if ($(this).attr('type') == 'checkbox'){
+                                    if ($(this).is(':checked')){
+                                      //postData[$(this).attr('name')] = $(this).val();
+                                       checkData[k]=$(this).val();
+                                        k++;
+                                    }
+                                       //alert($(this).val())
+                                }
+                                else{
+                                    // var item=;
+                                    postData[$(this).attr('name')] = $(this).val();
+                                }
+                                //if ($(this).attr('type') == 'checkbox'){
+                           });
+                          // console.log(checkData);
+                          //alert(checkData.length);
+                           if (checkData.length >0)
+                                postData['checkbox'] = checkData;
+
+//                           if($("#checkbox1").is(':checked')) {  
+//                                alert("Está activado");  
+//                            } else {  
+//                                alert("No está activado");  
+//                            }
+
+                           //console.log(postData); 
+                           elem.click(postData);
+                           //console.log(formElems);
                         });
+                        
                         footer.append(button);
                         break;
                     case 'cancel':
@@ -328,10 +366,10 @@
                 //      <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
                 //alert(type)
                 
-                var input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id});
+                var input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id,name:setting.name});
                 if (typeof setting.disabled != undefined && setting.disabled){
                     // <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Disabled input here…" disabled="">
-                  input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id, placeholder:setting.placeHolder, disabled:''});
+                  input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id, placeholder:setting.placeHolder, disabled:'',name:setting.name});
                 }
                 if (typeof setting.editable != undefined && !setting.editable){
                     //<span class="input-xlarge uneditable-input">Some value here</span>
@@ -339,7 +377,7 @@
                 }
                 if (typeof setting.focused != undefined && setting.focused){
                     //<input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
-                     input = $('<input>').addClass('input-'+setting.wtype+' focused').attr({type:type,id:setting.id, value:setting.value});
+                     input = $('<input>').addClass('input-'+setting.wtype+' focused').attr({type:type,id:setting.id, value:setting.value,name:setting.name});
                 }
                 input.data('gtype', setting.gtype); //setting gtype
                 input.data('requiered', setting.requiered); //setting gtype
@@ -367,7 +405,7 @@
                 for(var i=0; i<items.length; i++){
                    // alert(data[i][1]);
                     var check = $('<label>').addClass('checkbox'+inline); 
-                    check.append($('<input>').attr({type:'checkbox',value:items[i][1], id:setting.id+i}));
+                    check.append($('<input>').attr({type:'checkbox',value:items[i][1], id:setting.id+i,name:setting.name}));
                     check.append(items[i][0]);
                     control.append(check);
                 }
@@ -383,11 +421,11 @@
                 //    <option>4</option>
                 //    <option>5</option>
                 //</select>
-                var combobox = $('<select>').attr('id',setting.id);
+                var combobox = $('<select>').attr({id:setting.id,name:setting.name});
                 if (typeof setting.span != 'undefined' && setting.span)
                     combobox = $('<select>').addClass(setting.span).attr('id',setting.id);
                 if (typeof setting.multiple != 'undefined' && setting.multiple)
-                       combobox.attr('multiple','multiple')
+                       combobox.attr('multiple','multiple');
                 var data = setting.items;
                 //console.log(data.length);
                 for(var i=0; i<data.length; i++)
@@ -401,14 +439,14 @@
             case 'inputfile':
                 //alert('tenemos un inputfile');
                 //<input class="input-file" id="fileInput" type="file">
-                var inputFile = $('<input>').addClass('input-file').attr({id:setting.id,type:'file'});
+                var inputFile = $('<input>').addClass('input-file').attr({id:setting.id,type:'file',name:setting.name});
                 control.append(inputFile);
                 
                 break;
             case 'textarea':
                 //alert('tenemos un textarea');
                 //<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
-                var textArea = $('<textarea>').addClass('input-xlarge').attr({id:setting.id,rows:setting.rows});
+                var textArea = $('<textarea>').addClass('input-xlarge').attr({id:setting.id,rows:setting.rows,name:setting.name});
                 control.append(textArea);
                 break;
             case 'radiobutton':
@@ -674,7 +712,8 @@
                 id        : 'textarea',
                 name      : 'textarea',
                 label     : 'Text Area',
-                rows      : 3
+                rows      : 3,
+                requiered    : false
             };  
             return this.each(function(){
                 if(options){
@@ -800,7 +839,7 @@
                             default:
                                 break;
                         }
-                        if(hasError == true) { 
+                        if(hasError == true) {
                             $(parent).addClass(cls + ' '+'error'); //<div class="control-group error">
                         } else {
                             $(parent).attr('class',cls); //<div class="control-group">
