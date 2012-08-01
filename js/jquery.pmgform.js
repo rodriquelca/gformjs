@@ -58,7 +58,7 @@
                     }
                     //HERE would be the code
                     //$(this).createModal(settings).pmvalidator();
-                    $(this).createModal(settings);
+                    createModal(settings);
                   
                 });
         },
@@ -81,7 +81,7 @@
         }
     };
     
-    $.fn.createModal = function( setting ) {
+   var createModal = function( setting ) {
         var container = $(setting.container);
 
         //create modal
@@ -117,52 +117,62 @@
         //</div>
         var footer =$('<div>').addClass('modal-footer');
         var bttns = setting.buttons
-         var elem;
+        var elem;
         if (typeof bttns != 'undefined' && bttns != null){
-             for(var i=0; i<bttns.length; i++){
+            for(var i=0; i<bttns.length; i++){
                 switch(bttns[i].type){
                     case 'primary':
                         elem = bttns[i];
                         var button = $('<a>').addClass('btn btn-primary').text(elem.title);
                         
                         $(button).click(function(){
-                           var $form = $('form');
-                           var formA = $('#'+setting.id).find( $form );
-                           var postData  = new Object();
-                           var checkData=[];
-                           var k=0;
-                           formA.find(':input').each(function()
-                           {
-                                //alert($(this).attr('name')+' -> '+$(this).val());
+                            var $form = $('form');
+                            var formA = $('#'+setting.id).find( $form );
+                            var postData  = new Object();
+                            var checkData=[];
+                            var k=0;
+                            var haveRequiered=false;
+                           formA.find(':input').each(function() {
                                 if ($(this).attr('type') == 'checkbox'){
                                     if ($(this).is(':checked')){
-                                      //postData[$(this).attr('name')] = $(this).val();
                                        checkData[k]=$(this).val();
                                         k++;
-                                    }
-                                       //alert($(this).val())
-                                }
-                                else{
-                                    // var item=;
+                                    }                                    
+                                } else {
                                     postData[$(this).attr('name')] = $(this).val();
+                                }   
+                                //whit form manipulation
+                                if (typeof $(this).data('validationFailed') != 'undefined' && $(this).data('validationFailed')) {  //if have some validate field;
+                                    haveRequiered=true;
+                                    //console.log($(this));
                                 }
-                                //if ($(this).attr('type') == 'checkbox'){
+                                //whit black fields type 'text' or 'password'
+                               
+                                 if ($(this).val()=='' && $(this).attr('type')=='text' ) {  //if have some validate field;
+                                    requieredVerify(this);
+                                    //console.log($(this));
+                                    haveRequiered=true;
+                                    //console.log($(this));
+                                 }
+                                
                            });
-                          // console.log(checkData);
-                          //alert(checkData.length);
                            if (checkData.length >0)
                                 postData['checkbox'] = checkData;
-
-//                           if($("#checkbox1").is(':checked')) {  
-//                                alert("Está activado");  
-//                            } else {  
-//                                alert("No está activado");  
-//                            }
-
-                           //console.log(postData); 
-                           elem.click(postData);
-                           //console.log(formElems);
+                           
+                           if (!haveRequiered){
+                                clearForm(formA); //clear all field of a form
+                                elem.click(postData); //eject the callback whit fom values
+                                modal.modal('hide');
+                           } else {
+                               alert('some fields are requiered');
+                           }
                         });
+                        modal.on('hidden', function () {
+                            var $form = $('form');
+                            var formA = $('#'+setting.id).find( $form );    
+                            clearForm(formA);
+                            //alert('hidden');
+                        }); 
                         
                         footer.append(button);
                         break;
@@ -187,6 +197,66 @@
         });
         return this;
     };
+    
+    var requieredVerify = function(a){
+        //alert('verify');
+        var elem=$(a);
+        var parent = elem.parent().parent();
+        var cls =   parent.attr('class').split(' ')[0];   
+        var requiered = elem.data('requiered');
+        //var gtype = elem.data('gtype');
+        var hasError =false;
+        var fieldVal = elem.val();
+        var gtype = elem.data('gtype');
+        if (requiered){
+            if(fieldVal == '') {
+                hasError = true;                
+            }
+        }
+        switch(gtype){
+            case 'email':
+                var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; // regular expresion for validation
+                //verify if is correct email
+                    if(fieldVal == '') {
+                        hasError = true;
+                    }
+                    else if(!emailReg.test(fieldVal)) {
+                    //$("#UserEmail").after('<span class="error">Enter a valid email address.</span>');
+                        hasError = true;
+                   }
+                   break;
+        }
+        if(hasError == true) {
+            $(parent).addClass(cls + ' '+'error'); //<div class="control-group error">
+            elem.data('validationFailed',true);
+        } else {
+            $(parent).attr('class',cls); //<div class="control-group">
+            elem.data('validationFailed',false);
+        }
+    }
+    
+    var clearForm=function(form){
+        
+         form.find(':input').each(function() {
+//	        switch(this.type) {
+//	            case 'password':
+//	            case 'select-multiple':
+//	            case 'select-one':
+//	            case 'text':
+//	            case 'textarea':
+//	                $(this).val('');
+//	                break;
+//	            case 'checkbox':
+//	            case 'radio':
+//	                this.checked = false;
+//	        }
+                var elem = $(this);
+                var parent = elem.parent().parent();
+                var cls =   parent.attr('class').split(' ')[0];
+                $(parent).attr('class',cls);
+	    });
+         form.get(0).reset()  //clean all form
+    }
     
 
      /*****************CREATE FORM ***********/ 
@@ -223,7 +293,6 @@
         example : function(a , b){}
     };
     /**
-     *
      * @class pmgformulario
      * @param {object} method object to create the status bar
      * @return  basic form
@@ -254,7 +323,6 @@
             var elements=setting.items;
             //console.log(elements);
             for(var i=0; i<elements.length; i++){
-                //alert('hola');
                 switch(elements[i].type){
                     case 'text': case 'password':
                         //alert(elements[i].type);
@@ -380,7 +448,7 @@
                      input = $('<input>').addClass('input-'+setting.wtype+' focused').attr({type:type,id:setting.id, value:setting.value,name:setting.name});
                 }
                 input.data('gtype', setting.gtype); //setting gtype
-                input.data('requiered', setting.requiered); //setting gtype
+                input.data('requiered', setting.requiered); //setting requiered
                 control.append(input);
 
                 if (typeof setting.help != undefined && setting.help){
@@ -447,6 +515,7 @@
                 //alert('tenemos un textarea');
                 //<textarea class="input-xlarge" id="textarea" rows="3"></textarea>
                 var textArea = $('<textarea>').addClass('input-xlarge').attr({id:setting.id,rows:setting.rows,name:setting.name});
+                textArea.data('requiered', setting.requiered);
                 control.append(textArea);
                 break;
             case 'radiobutton':
@@ -546,6 +615,7 @@
                 label     : 'checkbox',
                 //optionLabel      : 'Option one is this and that—be sure to include why it\'s great',
                 inline    : false,
+                requiered: false,
                 items     :[[1,'item1'],[2,'item2']] 
             };
             return this.each(function(){
@@ -796,8 +866,10 @@
                         }
                         if(hasError == true) { 
                             $(parent).addClass(cls + ' '+'error'); //<div class="control-group error">
+                            elem.data('validationFailed',true);
                         } else {
                             $(parent).attr('class',cls); //<div class="control-group">
+                            elem.data('validationFailed',false);
                         }
                     });
                     
@@ -809,14 +881,15 @@
                         
                         var requiered = elem.data('requiered');
                         var gtype = elem.data('gtype');
-                        var hasError =false;
+                        //var hasError =false;
 
                         var fieldVal = elem.val();
-
+                        var hasError =false;
                         //verify if is requiered
                         if (requiered){
                              if(fieldVal == '') {
                                 hasError = true;
+                                
                              }
                         }
                         
@@ -841,11 +914,34 @@
                         }
                         if(hasError == true) {
                             $(parent).addClass(cls + ' '+'error'); //<div class="control-group error">
+                            elem.data('validationFailed',true);
                         } else {
                             $(parent).attr('class',cls); //<div class="control-group">
+                             elem.data('validationFailed',false);
                         }
                     });
                     
+                     $('textarea').focusout(function(){
+                           var elem = $(this);
+                           var parent = elem.parent().parent();
+                           var cls =   parent.attr('class').split(' ')[0];
+                           var requiered = elem.data('requiered');
+                           var fieldVal = elem.val();
+                           var hasError =false;
+                           //verify if is requiered
+                           if (requiered){
+                               if(fieldVal == '') {
+                                   hasError = true;
+                               }
+                           }
+                           if(hasError == true) { 
+                               $(parent).addClass(cls + ' '+'error'); //<div class="control-group error">
+                               elem.data('validationFailed',true);
+                           } else {
+                               $(parent).attr('class',cls); //<div class="control-group">
+                               elem.data('validationFailed',false);
+                           }    
+                     });
                 });
         },
         example : function(a , b){}
