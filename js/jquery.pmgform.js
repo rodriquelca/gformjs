@@ -151,7 +151,7 @@
                                  if ($(this).val()=='' && $(this).attr('type')=='text' ) {  //if have some validate field;
                                     requieredVerify(this);
                                     //console.log($(this));
-                                    haveRequiered=true;
+                                    //haveRequiered=true;
                                     //console.log($(this));
                                  }
                                 
@@ -341,7 +341,7 @@
                         fieldset.pmtextarea(elements[i]);
                         break;
                     case 'radiobutton':
-                        fieldset.pmradiobutton();
+                        fieldset.pmradiobutton(elements[i]);
                         break;
                 }
             }
@@ -433,8 +433,7 @@
                 //      <input type="text" class="input-xlarge" id="input01">
                 //      <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
                 //alert(type)
-                
-                var input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id,name:setting.name});
+                var input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id,name:setting.name,placeholder:setting.placeHolder});
                 if (typeof setting.disabled != undefined && setting.disabled){
                     // <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Disabled input here…" disabled="">
                   input = $('<input>').addClass('input-'+setting.wtype).attr({type:type,id:setting.id, placeholder:setting.placeHolder, disabled:'',name:setting.name});
@@ -444,6 +443,7 @@
                     input = $('<span>').addClass('input-'+setting.wtype+' uneditable-input').text('Some value here');
                 }
                 if (typeof setting.focused != undefined && setting.focused){
+                   
                     //<input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
                      input = $('<input>').addClass('input-'+setting.wtype+' focused').attr({type:type,id:setting.id, value:setting.value,name:setting.name});
                 }
@@ -655,7 +655,7 @@
                 container: $(this),
                 id        : 'radiobutton',
                 name      : 'radiobutton',
-                label     : 'Radio Button',
+                label     : 'Radio Button2',
                 //optionLabel      : 'Option one is this and that—be sure to include why it\'s great',
                 inline    : false,
                 items     :[[1,'item1'],[2,'item2']]
@@ -681,6 +681,7 @@
      * @memberOf jQuery.fn
      */
     $.fn.pmradiobutton = function( method ) {
+       
         if ( methodsRadioButton[method] ) {
             return methodsRadioButton[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {

@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+     <link href="css/bootstrap-responsive.css" rel="stylesheet">
+<!--    <link href="css/sprite.css" rel="stylesheet" type="text/css" />-->
+
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+<!--    <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.pmgform.js"></script>
+    <script>
+        $(document).ready(function(){
+
+
+            $('#containermodal').pmgform({
+                id:'myModal',
+                title: 'Invite collaborators',
+                closable:true,
+                buttons   : [
+
+                                 {
+                                  title:'Send Invitations',
+                                  type :'primary',
+                                  click : function( elem ){
+                                      console.log(elem)
+                                      alert('clicked');
+                                  }
+                                 }
+                                 
+                                ],
+                items: {
+                         id        : 'formid',
+                         name      : 'formulario',
+                         items     : [
+                                        {
+                                            type      : 'text',
+                                            id        : 'textArea1',
+                                            name      : 'textField',
+                                            label     : 'Permissions',
+                                            disabled   : false,
+                                            placeHolder: 'Type something',
+                                            editable   : true,
+                                            focused    : false,
+                                            value      : 'asdfa',
+                                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                                            requiered    : false, 
+                                            gtype       : 'varchar' //varchar,email,number,password
+                                        },
+                              
+                                        {
+                                            type       :'radiobutton',
+                                            id        : 'radiobutton',
+                                            name      : 'radiobutton',
+                                            label     : 'New Invitation',
+                                            inline    : true,
+                                            items     :[['Email','Email'],['Generate Link','Generate Link']]
+                                        },
+                                        {
+                                            type      : 'text',
+                                            id        : 'emails',
+                                            name      : 'emails',
+                                            label     : ' ',
+                                            help      : true, //false
+                                            helpText  : 'Enter email addresses (comma separated)',
+                                            disabled   : false,
+                                            placeHolder: 'aaa@pmapper.com,bbb@pmapper.com,...',
+                                            editable   : true,
+                                            focused    : false,
+                                            value      : 'asdfa',
+                                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                                            requiered    : false, 
+                                            gtype       : 'varchar' //varchar,email,number,password
+                                        },
+                                         {
+                                            type      : 'textarea',
+                                            id        : 'message',
+                                            name      : 'message',
+                                            label     : 'Message',
+                                            rows      : 3,
+                                            requiered :false   //optional
+                                        },
+                                        
+                         ]
+                       }
+                       
+            }).pmvalidator();
+            
+        })
+    </script>
+  </head>
+  <body>
+      
+      <a class="btn" data-toggle="modal" href="#myModal" >Share and publish</a>
+      <div id="containermodal">
+        <!--  TODO EL CONTENIDO DEL FORMULARIO           -->
+      </div>
+  </body>
+</html>
