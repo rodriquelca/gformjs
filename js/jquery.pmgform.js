@@ -36,7 +36,7 @@
                                  {
                                   title:'save',
                                   type :'primary',
-                                  click : function( elem ){
+                                  onClick : function( elem ){
                                       alert('hola');
                                       var $form = $('form');
                                       var formElems = $('#'+elem).find( $form );
@@ -141,17 +141,18 @@
                                 } else {
                                     postData[$(this).attr('name')] = $(this).val();
                                 }   
-                                //whit form manipulation
+                                //with form manipulation
+                               console.log($(this).data('validationFailed'));
                                 if (typeof $(this).data('validationFailed') != 'undefined' && $(this).data('validationFailed')) {  //if have some validate field;
                                     haveRequiered=true;
                                     //console.log($(this));
                                 }
-                                //whit black fields type 'text' or 'password'
+                                //with black fields type 'text' or 'password'
                                
                                  if ($(this).val()=='' && $(this).attr('type')=='text' ) {  //if have some validate field;
                                     requieredVerify(this);
                                     //console.log($(this));
-                                    //haveRequiered=true;
+                                    haveRequiered=true;
                                     //console.log($(this));
                                  }
                                 
@@ -161,7 +162,7 @@
                            
                            if (!haveRequiered){
                                 clearForm(formA); //clear all field of a form
-                                elem.click(postData); //eject the callback whit fom values
+                                elem.onClick(postData); //eject the callback whit form values
                                 modal.modal('hide');
                            } else {
                                alert('some fields are requiered');
@@ -255,7 +256,10 @@
                 var cls =   parent.attr('class').split(' ')[0];
                 $(parent).attr('class',cls);
 	    });
-         form.get(0).reset()  //clean all form
+        if (typeof form.get(0)!== 'undefined'){
+            form.get(0).reset();  //clean all form
+        }
+
     }
     
 
@@ -440,7 +444,7 @@
                 }
                 if (typeof setting.editable != undefined && !setting.editable){
                     //<span class="input-xlarge uneditable-input">Some value here</span>
-                    input = $('<span>').addClass('input-'+setting.wtype+' uneditable-input').text('Some value here');
+                    input = $('<span>').addClass('input-'+setting.wtype+' uneditable-input').text(setting.value);
                 }
                 if (typeof setting.focused != undefined && setting.focused){
                    
@@ -565,7 +569,7 @@
                     help      : false,
                     helpText  : 'In addition to freeform text, any HTML5 text-based input appears like so.',
                     disabled   : false,
-                    placeHolder: 'Disabled Input here',
+                    //placeHolder: 'Disabled Input here',
                     editable   : true,
                     focused    : false,
                     value      : '',
@@ -873,7 +877,7 @@
                             elem.data('validationFailed',false);
                         }
                     });
-                    
+
                     $('input[type="text"]').focusout(function(){
                         //alert('aqui llegamos');
                         var elem = $(this);
@@ -887,6 +891,7 @@
                         var fieldVal = elem.val();
                         var hasError =false;
                         //verify if is requiered
+                        console.log(requiered);
                         if (requiered){
                              if(fieldVal == '') {
                                 hasError = true;

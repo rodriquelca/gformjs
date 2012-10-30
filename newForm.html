@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forms page</title>
+    <meta charset="UTF-8">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.pmgform.js"></script>
+    <script>
+        $(document).ready(function(){
+
+
+            $('#newModal').pmgform({
+                id:'myModal',
+                title: 'New Project',
+                closable:true,
+                buttons   : [ {
+                    title:'Create',
+                    type :'primary',
+                    onClick : function ( elem ) {
+                        console.log(elem);
+                        alert('clicked');
+                    }
+                }, {
+                    title:'cancel',
+                    type :'cancel'
+                }],
+                items: {
+                    id        : 'formid',
+                    name      : 'formulario',
+                    items     : [
+                        {
+                            type      : 'text',
+                            id        : 'userName',
+                            name      : 'userName',
+                            label     : 'Username',
+                            disabled   : false,
+                            //placeHolder: 'Username',
+                            editable   : false,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                            requiered    : true,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'proName',
+                            name      : 'proName',
+                            label     : 'Project Name',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                            requiered    : true,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'combobox',
+                            id        : 'industry',
+                            name      : 'industry',
+                            label     : 'Industry',
+                            multiple  : false,
+                            fields: ['id', 'items'],
+                            items: [[1, 'cmb1'], [2, 'cmb2']]
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'version',
+                            name      : 'version',
+                            label     : 'Version',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'firstDiaName',
+                            name      : 'firstDiaName',
+                            label     : 'First Diagrama Name',
+                            disabled   : false,
+                            editable   : true,
+                            focused    : false,
+                            value      : 'Diagram#1',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'textarea',
+                            id        : 'description',
+                            name      : 'description',
+                            label     : 'Description',
+                            rows      : 3,
+                            requiered :false    //optional
+                        },
+                        {
+                            type      : 'checkbox',
+                            id        : 'openDia',
+                            name      : 'openDia',
+                            label     : 'Open diagram after save',
+                            inline    : true,
+                            items     :[['','check1']],
+                            requiered:true,
+                            // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                            listener  : function(){
+                                alert('here the listener');
+                            }
+                        }
+                    ]
+                }
+            }).pmvalidator();
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $('#newModal').pmgform({
+                id:'myModal2',
+                title: 'Save as',
+                closable:true,
+                buttons   : [ {
+                    title:'Save',
+                    type :'primary',
+                    onClick : function ( elem ) {
+                        console.log(elem);
+                        alert('clicked');
+                    }
+                }, {
+                    title:'cancel',
+                    type :'cancel'
+                }],
+                items: {
+                    id        : 'formid',
+                    name      : 'formulario',
+                    items     : [
+                        {
+                            type      : 'text',
+                            id        : 'proName',
+                            name      : 'proName',
+                            label     : 'Project Name',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                            requiered    : true,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'combobox',
+                            id        : 'industry',
+                            name      : 'industry',
+                            label     : 'Industry',
+                            multiple  : false,
+                            fields: ['id', 'items'],
+                            items: [[1, 'cmb1'], [2, 'cmb2']]
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'version',
+                            name      : 'version',
+                            label     : 'Version',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'firstDiaName',
+                            name      : 'firstDiaName',
+                            label     : 'First Diagrama Name',
+                            disabled   : false,
+                            editable   : true,
+                            focused    : false,
+                            value      : 'Diagram#1',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'textarea',
+                            id        : 'description',
+                            name      : 'description',
+                            label     : 'Description',
+                            rows      : 3,
+                            requiered :false    //optional
+                        }
+
+                    ]
+                }
+            }).pmvalidator();
+
+
+
+
+            $('#newModal').pmgform({
+                id:'myModal3',
+                title: 'Properties',
+                closable:true,
+                buttons   : [ {
+                    title:'Save',
+                    type :'primary',
+                    onClick : function ( elem ) {
+                        console.log(elem);
+                        alert('clicked');
+                    }
+                }, {
+                    title:'cancel',
+                    type :'cancel'
+                }],
+                items: {
+                    id        : 'formid',
+                    name      : 'formulario',
+                    items     : [
+                        {
+                            type      : 'text',
+                            id        : 'userName',
+                            name      : 'userName',
+                            label     : 'Username',
+                            disabled   : false,
+                            //placeHolder: 'Username',
+                            editable   : false,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                            requiered    : true,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'proName',
+                            name      : 'proName',
+                            label     : 'Project Name',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'xlarge', //mini,small,medium,large,xlarge
+                            requiered    : true,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'combobox',
+                            id        : 'industry',
+                            name      : 'industry',
+                            label     : 'Industry',
+                            multiple  : false,
+                            fields: ['id', 'items'],
+                            items: [[1, 'cmb1'], [2, 'cmb2']]
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'version',
+                            name      : 'version',
+                            label     : 'Version',
+                            disabled   : false,
+                            placeHolder: 'Type something',
+                            editable   : true,
+                            focused    : false,
+                            value      : 'asdfa',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'text',
+                            id        : 'firstDiaName',
+                            name      : 'firstDiaName',
+                            label     : 'First Diagrama Name',
+                            disabled   : false,
+                            editable   : true,
+                            focused    : false,
+                            value      : 'Diagram#1',
+                            wtype      : 'medium', //mini,small,medium,large,xlarge
+                            requiered    : false,
+                            gtype       : 'varchar' //varchar,email,number,password
+                        },
+                        {
+                            type      : 'textarea',
+                            id        : 'description',
+                            name      : 'description',
+                            label     : 'Description',
+                            rows      : 3,
+                            requiered :false    //optional
+                        }
+
+                    ]
+                }
+            }).pmvalidator();
+        });
+
+    </script>
+</head>
+<body>
+<p>
+    <a class="btn" data-toggle="modal" href="#myModal" id="new">New form</a>
+</p>
+
+<p>
+    <a class="btn" data-toggle="modal" href="#myModal2" id="save">Save as</a>
+</p>
+<p>
+    <a class="btn" data-toggle="modal" href="#myModal3"  id="properties">Properties</a>
+</p>
+<div id="newModal"></div>
+</body>
+</html>
