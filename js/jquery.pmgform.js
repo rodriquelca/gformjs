@@ -319,7 +319,7 @@
         //console.log(container);
         //<form class="form-horizontal"></form>
         var form = $('<form>').addClass('form-horizontal').attr({id:setting.id, name:setting.name});
-        
+        var fieldWidth = setting.fieldWidth;
         // <fieldset> </fieldset>
         var fieldset = $('<fieldset>');
         
@@ -330,7 +330,7 @@
                 switch(elements[i].type){
                     case 'text': case 'password':
                         //alert(elements[i].type);
-                        fieldset.pmtextfield(elements[i]);                      
+                        fieldset.pmtextfield(elements[i],fieldWidth);
                         break;
                     case 'checkbox':
                         fieldset.pmcheckbox(elements[i]);
@@ -419,7 +419,7 @@
     };
 
     /*****************CREATE COMPONENTS METHOD***********/
-    $.fn.createComponent = function( setting , type) {
+    $.fn.createComponent = function( setting , type, fieldWidth) {
         var container = $(setting.container);
         //create controls of components
         // <div class="control-group">
@@ -429,6 +429,12 @@
         //  </div>
         var component = $('<div>').addClass('control-group');
         var label = $('<label>').addClass('control-label').attr('for', 'input01').text(setting.label);
+        //widthDefault.log(setting);
+        //alert(fieldWidth);
+        if (fieldWidth){
+            label.css({'width': fieldWidth +'px', 'padding-right':'10px'});
+        }
+
         component.append(label);
         var control = $('<div>').addClass('controls');
         switch(type){
@@ -481,7 +487,6 @@
                     check.append(items[i][0]);
                     control.append(check);
                 }
-               // control.append(check);
                 
                 break;
             case 'combobox':
@@ -585,8 +590,8 @@
                     //console.log(settings.container);
                     
                     $(this).createComponent(settings,settings.type);
-                   
-                    
+
+
                 });
         },
         example : function(a , b){}

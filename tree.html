@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.pmTree.js"></script>
+    <script>
+
+        $(document).ready(function() {
+
+            $('#arbol').pmtree({
+                collapsed : false,
+                dragable  :	false,
+                label		  : 'el arbol',
+                items			: [{
+                    name:'Diagrama # 1',
+                    icon:'images/folder-horizontal.png',
+                    items: [{
+                        name :'process 1',
+                        icon:'images/folder-horizontal.png',
+                        items:[{
+                            name : 'lane1'
+                        },
+                            {
+                                name: 'lane2'
+
+                            }
+                        ]
+                    },
+                        {
+                            name :'process 2',
+                            icon:'images/folder-horizontal.png',
+                            items:[{
+                                name : 'lane'
+                            }
+                            ]
+                        }
+                    ]
+
+                }]
+            }) ;
+            $('#btn-reloadBtn').click(function(){
+                treeReload('tree',{});
+            })
+        });
+    </script>
+</head>
+<body>
+
+</body>
+<div id="arbol">
+
+</div>
+<button class="btn btn-small btn-primary" type="button" id="reloadBtn">Reload</button>
+
+
+</html>

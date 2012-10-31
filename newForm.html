@@ -5,9 +5,29 @@
     <meta charset="UTF-8">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <style type="text/css">
+        @import "js/datatables/jquery.dataTables.css";
+    </style>
+    <style type="text/css">
+        #wrap {
+            width:800px;
+            margin:0 auto;
+        }
+        #left_col {
+            float:left;
+            width:700px;
+        }
+        #right_col {
+            float:right;
+            width:100px;
+        }
+
+    </style>
+
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/jquery.pmgform.js"></script>
+    <script class="jsbin" src="js/datatables/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function(){
 
@@ -312,6 +332,97 @@
                     ]
                 }
             }).pmvalidator();
+
+
+        $('#newModal').pmgform({
+            id:'myModal4',
+            title: 'Validation Settings',
+            closable:true,
+            buttons   : [ {
+                title:'Apply',
+                type :'primary',
+                onClick : function ( elem ) {
+                    console.log(elem);
+                    alert('clicked');
+                }
+            }, {
+                title:'cancel',
+                type :'cancel'
+            }],
+            items: {
+                id        : 'formid',
+                name      : 'formulario',
+                fieldWidth :200,
+                items     : [
+                    {
+                        type      : 'checkbox',
+                        id        : 'omg',
+                        name      : 'omg',
+                        label     : 'OMG BPMN 2.0 Official Specs:',
+                        inline    : true,
+                        items     :[['','check1']],
+                        requiered:true,
+                        // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                        listener  : function(){
+                            alert('here the listener');
+                        }
+                    },
+                    {
+                        type      : 'checkbox',
+                        id        : 'engine',
+                        name      : 'engine',
+                        label     : 'ProcessMaker BPMN Engine:',
+                        inline    : true,
+                        items     :[['','check1']],
+                        requiered:true,
+                        // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                        listener  : function(){
+                            alert('here the listener');
+                        }
+                    },
+                    {
+                        type      : 'checkbox',
+                        id        : 'engine',
+                        name      : 'engine',
+                        label     : 'ProcessMaker BPMN Engine:',
+                        inline    : true,
+                        items     :[['','check1']],
+                        requiered:true,
+                        // items     :[['Option one is this and that—be sure to include why it\'s great','item1']]
+                        listener  : function(){
+                            alert('here the listener');
+                        }
+                    },
+                    {
+                        type       :'radiobutton',
+                        id        : 'radiobutton',
+                        name      : 'radiobutton',
+                        label     : 'Radio Button',
+                        //optionLabel      : 'Option one is this and that—be sure to include why it\'s great',
+                        inline    : true,
+                        items     :[['Automatic','Automatic'],['Manual','Manual']]
+                    }
+
+                ]
+            }
+        }).pmvalidator();
+
+            $('#example').dataTable({
+                "bLengthChange": false,
+                "bFilter": false//,
+            });
+            $('#myModal1,#myModal2, #myModal3, #myModal4, #myModal5').modal({
+                backdrop: true,
+                keyboard: true,
+                show :false
+            }).css({
+                        width: 'auto',
+                        'margin-left': function () {
+                            return -($(this).width() / 2);
+                        }
+                    });
+
+
         });
 
     </script>
@@ -326,6 +437,75 @@
 </p>
 <p>
     <a class="btn" data-toggle="modal" href="#myModal3"  id="properties">Properties</a>
+</p>
+<p>
+    <a class="btn" data-toggle="modal" href="#myModal4"  id="validation">Validation form</a>
+</p>
+
+<p>
+    <a class="btn" data-toggle="modal" href="#myModal5"  id="import">Import</a>
+    <!-- Modal -->
+    <div id="myModal5" class="modal hide fade modal-admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Import</h3>
+    </div>
+    <div class="modal-body">
+        <div id="wrap">
+            <div id="left_col">
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                    <tr>
+                        <th>Project Title</th>
+                        <th>Autor</th>
+                        <th>Views</th>
+                        <th>Downloads</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd gradeX">
+                        <td>Solicitud de Vacaciones</td>
+                        <td>Rodrigo Quelca Sirpa</td>
+                        <td>45</td>
+                        <td class="center"> 4</td>
+                        <td class="center"><a href="#"><img src="img/download.png"></a></td>
+                    </tr>
+                    <tbody>
+                    <tr class="odd gradeX">
+                        <td>IT service request</td>
+                        <td>Rodrigo Quelca Sirpa</td>
+                        <td>12</td>
+                        <td class="center"> 0</td>
+                        <td class="center"><a href="#"><img src="img/download.png"></a></td>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <!--<tr>-->
+                    <!--<th>Rendering engine</th>-->
+                    <!--<th>Browser</th>-->
+                    <!--<th>Platform(s)</th>-->
+                    <!--<th>Engine version</th>-->
+                    <!--<th>CSS grade</th>-->
+                    <!--</tr>-->
+                    </tfoot>
+                </table>
+            </div>
+            <div id="right_col">
+                preview
+            </div>
+        </div>
+
+
+
+    </div>
+    <!--<div class="modal-footer">-->
+        <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->
+        <!--<button class="btn btn-primary">Save changes</button>-->
+    <!--</div>-->
+</div>
+
 </p>
 <div id="newModal"></div>
 </body>
