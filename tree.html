@@ -6,55 +6,116 @@
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="lib/underscore/underscore.js" ></script>
+
     <script type="text/javascript" src="js/jquery.pmTree.js"></script>
+    <script type="text/javascript" SRC="js/bpmnProject.js"></script>
+    <script type="text/javascript" SRC="js/bpmnDiagram.js"></script>
     <script>
 
         $(document).ready(function() {
+            var project = new bpmnProject();
+            var diagram = new bpmnDiagram();
+            /*************************************/
+            //create a bpmnDiagram object
 
-            $('#arbol').pmtree({
+            var dia = '{"usrUid":"4752197264f46a1757ce2d0097114489","usrLogged":"4752197264f46a1757ce2d0097114489","diagram":[["4056396484f972214c3aa99096939506","Diagram # 1",0]],"pools":[["6334838864f972214c4a836013668755","Lane # 2","7053833004f972214c41574061372316","PUBLIC","1","0","1","63","272","896","240","6733703614f972214c48738041972308","0","0",null],["3572692874f972214c43af0035934335","IT Service Request","7053833004f972214c41574061372316","PUBLIC","1","0","1","18","152","941","361",null,"0","0","1"]],"lanes":[["8327331544f972214c4c714030880869","Level 1","6334838864f972214c4a836013668755","1","108","272","851","120",null,"1"],["1602783204f972214c4e6e8083935285","Level 2","6334838864f972214c4a836013668755","1","108","392","851","120",null,"2"],["6733703614f972214c48738041972308","Lane # 2","3572692874f972214c43af0035934335","1","63","272","896","240","6334838864f972214c4a836013668755","2"],["2722167964f972214c46003070458776","User","3572692874f972214c43af0035934335","1","63","152","896","120",null,"1"]],"participants":[["9661560054f972214c7e0f3071070312","Customer","1","","38","7","938","91","0","1"]],"activities":[["83480834950292a84081526048037353","Task # 4","TASK","EMPTY","NONE","NONE","1","0","0","","510","720","121","41","0","","","0","bpmnDiagram"],["9135742184f972214c60cb5028039837","Perform Level 2 Support","TASK","BUSINESSRULE","NONE","NONE","1","0","0","1602783204f972214c4e6e8083935285","370","417","121","73","0","","","0","bpmnLane"],["1968688964f972214c58796094833532","File support request ticket","TASK","USERTASK","NONE","NONE","1","0","0","2722167964f972214c46003070458776","179","166","109","75","0","","","0","bpmnLane"],["8174438474f972214c54b65048965809","Perform Level 1 Support","TASK","BUSINESSRULE","NONE","NONE","1","0","0","8327331544f972214c4c714030880869","173","299","121","65","0","","","0","bpmnLane"],["2845764164f972214c515f5026127634","Close support ticket","TASK","USERTASK","NONE","NONE","1","0","0","2722167964f972214c46003070458776","692","170","107","79","0","","","0","bpmnLane"],["6034851074fbfffe3dce212030824474","Task # 1","TASK","EMPTY","NONE","NONE","1","0","0","","542","103","121","41","0","","","0","bpmnDiagram"],["3385314944fc00013c47be8030816862","Task # 2","TASK","EMPTY","NONE","NONE","1","0","0","","321","104","121","41","0","","","0","bpmnDiagram"],["88864135750292a4f676378045441547","Task # 3","TASK","EMPTY","NONE","NONE","1","0","0","","475","989","121","41","0","","","0","bpmnDiagram"],["31497192350292ad8a2b8e1066717766","Task # 5","TASK","EMPTY","NONE","NONE","1","0","0","","474","810","121","41","0","","","0","bpmnDiagram"]],"events":[["4890441894fbffd7a0f82a2088631704","","START","EMPTY","1","","CATCH","","298","402","29","29","0","bpmnDiagram"],["8510131834f972214c6b6b6050955130","","END","MESSAGETHROW","1","","THROW","2722167964f972214c46003070458776","893","193","29","29","0","bpmnLane"],["9073791504f972214c748c2052860811","Escalation","BOUNDARY","ESCALATIONCATCH","1","8174438474f972214c54b65048965809","CATCH","","262","350","29","29","0",""],["2063293454f972214c66b92073697806","","START","MESSAGECATCH","1","","CATCH","2722167964f972214c46003070458776","98","189","29","29","0","bpmnLane"],["15197753950292a4d27e416094668548","","START","EMPTY","1","","CATCH","","171","768","29","29","0","bpmnDiagram"],["69998168950292aa3c94772048609149","","START","EMPTY","1","","CATCH","","93","855","29","29","0","bpmnDiagram"],["69586181650292a5150c324038314155","","END","EMPTY","1","","THROW","","769","789","29","29","0","bpmnDiagram"],["96011352550292b337b0ed5082298719","","START","EMPTY","1","","CATCH","","93","855","29","29","0","bpmnDiagram"]],"gateways":[["1684265134f972214c6f112037437105","Issue Solved?","EXCLUSIVE","DIVERGING","1602783204f972214c4e6e8083935285","573","434","41","41","0","bpmnLane"],["8758544924f972214c71b73046912411","Issue Solved?","EXCLUSIVE","DIVERGING","8327331544f972214c4c714030880869","376","310","41","41","0","bpmnLane"]],"artifacts":[],"data":[],"flows":[["3401794434f972214cb9499037867581","Yes","SEQUENCE","1684265134f972214c6f112037437105","bpmnGateway","2","2845764164f972214c515f5026127634","bpmnActivity","1"],["8543090824f972214cb6618077971363","No","SEQUENCE","1684265134f972214c6f112037437105","bpmnGateway","3","9135742184f972214c60cb5028039837","bpmnActivity","4"],["8204650874f972214cb4146014908522","","SEQUENCE","9135742184f972214c60cb5028039837","bpmnActivity","1","1684265134f972214c6f112037437105","bpmnGateway","1"],["3475341794f972214cb2082037300427","","SEQUENCE","9073791504f972214c748c2052860811","bpmnEvent","5","9135742184f972214c60cb5028039837","bpmnActivity","1"],["9555053714f972214cafbc6027191779","Yes","SEQUENCE","8758544924f972214c71b73046912411","bpmnGateway","2","2845764164f972214c515f5026127634","bpmnActivity","1"],["2882080074f972214ca5f29080177725","No","SEQUENCE","8758544924f972214c71b73046912411","bpmnGateway","3","8174438474f972214c54b65048965809","bpmnActivity","4"],["7289123534f972214ca7fe6001808260","","SEQUENCE","8174438474f972214c54b65048965809","bpmnActivity","1","8758544924f972214c71b73046912411","bpmnGateway","1"],["7500610354f972214ca9f64098208146","","SEQUENCE","1968688964f972214c58796094833532","bpmnActivity","2","8174438474f972214c54b65048965809","bpmnActivity","4"],["3521423334f972214cabde2071924173","","SEQUENCE","2063293454f972214c66b92073697806","bpmnEvent","1","1968688964f972214c58796094833532","bpmnActivity","1"],["3383789064f972214cadcc0000775024","","SEQUENCE","2845764164f972214c515f5026127634","bpmnActivity","1","8510131834f972214c6b6b6050955130","bpmnEvent","1"],["23431396450292bed405bb6010342673","","SEQUENCE","83480834950292a84081526048037353","bpmnActivity","1","69586181650292a5150c324038314155","bpmnEvent","2"],["70202636750292b0b45bb15043192022","","SEQUENCE","69998168950292aa3c94772048609149","bpmnEvent","1","31497192350292ad8a2b8e1066717766","bpmnActivity","1"],["89746093750292aa0e08543049819499","","SEQUENCE","15197753950292a4d27e416094668548","bpmnEvent","3","83480834950292a84081526048037353","bpmnActivity","1"],["68682861350292a59bd0114018383888","","SEQUENCE","88864135750292a4f676378045441547","bpmnActivity","1","69586181650292a5150c324038314155","bpmnEvent","1"],["29470825150292b3bc17c60088057833","","SEQUENCE","96011352550292b337b0ed5082298719","bpmnEvent","1","88864135750292a4f676378045441547","bpmnActivity","1"],["1289367674f972214cbdc58016603654","","MESSAGE","9661560054f972214c7e0f3071070312","bpmnParticipant","9","2063293454f972214c66b92073697806","bpmnEvent","6"],["1594238284f972214cbbb52002209031","","MESSAGE","8510131834f972214c6b6b6050955130","bpmnEvent","6","9661560054f972214c7e0f3071070312","bpmnParticipant","17"]]}';
+
+            var act = {'ACT_UID'                   : '83480834950292a84081526048037353',
+                'ACT_NAME'                  : 'Task # 4',
+                'ACT_TYPE'                  : 'TASK',
+                'ACT_TASK_TYPE'             : 'EMPTY',
+                'ACT_LOOP_TYPE'             : 'NONE',
+                'ACT_LOOP_BEHAVIOR'         : 'NONE',
+                'ACT_IS_COLLAPSED'          : '1',
+                'ACT_IS_ADHOC'              : '0',
+                'ACT_IS_FOR_COMPENSATION'   : '0',
+                'LAN_UID'                   : '',
+                'BOU_X'                     : '524',
+                'BOU_Y'                     : '529',
+                'BOU_WIDTH'                 : '121',
+                'BOU_HEIGHT'                : '41',
+                'BOU_REL_POSITION'          : '0',
+                'ACT_REFERER'               : '',
+                'ACT_MASTER_DIAGRAM'        : '',
+                'ACT_IS_GLOBAL'             : '0',
+                'BOU_CONTAINER'             : 'bpmnDiagram'};
+
+
+
+
+            diagram.addActivities(act);
+
+            act = {'ACT_UID'                   : '55480834950292a84081526048037353',
+                'ACT_NAME'                  : 'Task # 1',
+                'ACT_TYPE'                  : 'TASK',
+                'ACT_TASK_TYPE'             : 'EMPTY',
+                'ACT_LOOP_TYPE'             : 'NONE',
+                'ACT_LOOP_BEHAVIOR'         : 'NONE',
+                'ACT_IS_COLLAPSED'          : '1',
+                'ACT_IS_ADHOC'              : '0',
+                'ACT_IS_FOR_COMPENSATION'   : '0',
+                'LAN_UID'                   : '',
+                'BOU_X'                     : '524',
+                'BOU_Y'                     : '529',
+                'BOU_WIDTH'                 : '121',
+                'BOU_HEIGHT'                : '41',
+                'BOU_REL_POSITION'          : '0',
+                'ACT_REFERER'               : '',
+                'ACT_MASTER_DIAGRAM'        : '',
+                'ACT_IS_GLOBAL'             : '0',
+                'BOU_CONTAINER'             : 'bpmnDiagram'};
+
+            diagram.addActivities(act);
+            //console.log(d.activities);
+            //var y = d.setActivities('55480834950292a84081526048037353', {'ACT_NAME': 'Task # 2'});
+
+            project.setProject(diagram);
+
+            //console.log(project.getProject());
+
+
+
+
+
+            /*************************************/
+            var items1 = diagram.getDiagramTree();
+            $('#treecontainer').pmtree({
+                id:'tree',
                 collapsed : false,
-                dragable  :	false,
-                label		  : 'el arbol',
-                items			: [{
-                    name:'Diagrama # 1',
-                    icon:'images/folder-horizontal.png',
-                    items: [{
-                        name :'process 1',
-                        icon:'images/folder-horizontal.png',
-                        items:[{
-                            name : 'lane1'
-                        },
-                            {
-                                name: 'lane2'
+                label	  : 'el arbol',
+                select : function (param) {
+                    alert ('selected item '+ param.name);
+                },
+                unselect :function (id) {
+                    alert ('unselect item');
+                },
+                items	  : items1
 
-                            }
-                        ]
-                    },
-                        {
-                            name :'process 2',
-                            icon:'images/folder-horizontal.png',
-                            items:[{
-                                name : 'lane'
-                            }
-                            ]
-                        }
-                    ]
 
-                }]
             }) ;
-            $('#btn-reloadBtn').click(function(){
-                treeReload('tree',{});
-            })
+            var diagram = new bpmnDiagram();
+            var items2 = diagram.getDiagramTree2();
+            //console.log(items2);
+            $('#reload').click(function(){
+                //alert('#treecontainer');
+                //console.log(items2)
+                treeReload('tree', items2);
+            });
+
+
         });
+        //--><!]]>
+
+
     </script>
 </head>
 <body>
 
 </body>
-<div id="arbol">
-
-</div>
-<button class="btn btn-small btn-primary" type="button" id="reloadBtn">Reload</button>
+<h2>Tree panel</h2>
+<div id="treecontainer"></div>
+<a class="btn" id="reload">Reload</a>
 
 
 </html>

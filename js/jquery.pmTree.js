@@ -118,7 +118,6 @@
      * @param {Object} method
     */
     $.fn.pmtree = function( method ) {
-        alert('hola');
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
@@ -205,15 +204,17 @@
     * @return {string} html the added nodes
     */        
     treeReload = function (id, items) {
+     //   alert(id);
         var $elem = $('#'+id).parent().parent();
+
         $elem.empty();
         //alert('hola');
-        //console.log($elem);
+        console.log($elem);
         //createTree($elem,items)
        $elem.pmtree({
          id:id,
          collapsed:true,
-         items:items  
+         items:items
        });
     };
 })( jQuery );
