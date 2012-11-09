@@ -554,8 +554,9 @@ bpmnDiagram.prototype.getDiagramTree = function () {
 
 
     var items = [];
-    console.log(this.getAllActivities());
-    alert(this.getAllActivities().length);
+    //console.log(this.getAllActivities());
+    //alert(this.getAllActivities().length);
+
     for (var i=0; i<this.getAllActivities().length; i++){
         var act = this.getAllActivities()[i];
         var obj = {
@@ -579,8 +580,11 @@ bpmnDiagram.prototype.getDiagramTree = function () {
                     }
                 ]
             };
+
+
         items.push(obj);
     }
+
     return items;
 };
 
